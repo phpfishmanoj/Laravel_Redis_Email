@@ -1,4 +1,58 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+#installation and use
+
+=============== Redis Installation on Ubuntu======================================
+// change sync to redis in env
+QUEUE_CONNECTION=redis
+
+Enable-WindowsOptionalFeature: Microsoft-Windows-Subsystem-Linux 
+
+Install Ubuntu from windows store
+
+sudo apt-add-repository ppa:redislabs/redis
+sudo apt-get update
+sudo apt-get install redis-server
+
+to confirm redis installation
+redis-cli
+sudo service redis-server restart
+//or
+sudo service redis-server start
+
+redis-cli
+127.0.0.1:6379>
+
+sudo service redis-server stop
+
+====================================== config Redis in Laravel ==========================
+composer require predis/predis
+
+config/database.php
+
+'client' => env('REDIS_CLIENT', 'phpredis'),
+//to
+'client' => env('REDIS_CLIENT', 'predis'),
+
+
+php artisan queue:listen
+
+Hit to welcome page it will send email using redis
+
+
+==========
+2'nd
+
+php artisan make:controller RedisController
+
+https://docs.redis.com/latest/ri/installing/install-docker/
+
+docker run -v redisinsight:/db -p 8001:8001 redislabs/redisinsight:latest
+Then, point your browser to http://localhost:8001.
+
+RedisInsight also provides a health check endpoint at http://localhost:8001/healthcheck/ to monitor the health of the running container.
+
+
+
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
